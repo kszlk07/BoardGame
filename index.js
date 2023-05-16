@@ -51,6 +51,7 @@ var startingRedPosition = 21;
 
 var allstartingPositions = [startingBluePosition, startingYellowPosition, startingGreenPosition, startingRedPosition];
 
+var round = 0;
 StartingGame();
 
 function StartingGame(){
@@ -102,7 +103,7 @@ function ReturnToOriginField(pawnId){
       bluePawn4.finished = false;
       break;
     case yellowPawn1.id:
-      $("#yellowHomeField1").html(`<div class="pawn yellow-pawn" id="${yellowePawn1.id}"></div>`);
+      $("#yellowHomeField1").html(`<div class="pawn yellow-pawn" id="${yellowPawn1.id}"></div>`);
       yellowPawn1.stepsTaken = 0;
       yellowPawn1.position = 0;
       yellowPawn1.canMove = false;
@@ -110,7 +111,7 @@ function ReturnToOriginField(pawnId){
       yellowPawn1.finished = false;
       break;
     case yellowPawn2.id:
-      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowePawn1.id}"></div>`);
+      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn1.id}"></div>`);
       yellowPawn2.stepsTaken = 0;
       yellowPawn2.position = 0;
       yellowPawn2.canMove = false;
@@ -268,16 +269,16 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
               allLastEndingFields[currentPlayer] = 1;
             }
           }
-        }
-        if($("#" + color + "endingField3").html() != ''){
-          GameEnd(color);
+          if($("#" + color + "endingField1").html() != ''){
+            GameEnd(color);
+          }
         }
       }
   }
 }
 
 function GameEnd(color){
-  $(".main-header").html(`<span class="${turn}-text">Player ${turn} player</span> won!!! <br> Press any key to play again!`);
+  $(".main-header").html(`<span class="${color}-text">Player ${color} player</span> won!!! <br> Press any key to play again!`);
   for (var i = 0; i < allPawns.length; i++) {
     for (var j = 0; j < allPawns[i].length; j++) {
       ReturnToOriginField(allPawns[i][j].id);
@@ -431,7 +432,10 @@ function NextPlayer(current){
 
 function Turn (turn, roll, currentPlayer){
   var howManyCanMove = 0;
-
+  round += 1;
+  console.log("currentRound: " + round);
+  console.log("currentColor: " + turn);
+  console.log("currentRoll: " + roll)
     //Checking if player can move to next position with single pawns
     for (var i = 0; i < allPawns[currentPlayer].length; i++) {
       if($("#Field" + CalculateNextPosition(allPawns[currentPlayer][i].position, roll) + " .pawn").hasClass(turn + '-pawn') == true){
@@ -539,7 +543,6 @@ function nextTurn(playerNumber){
     var roll = DiceRoll();
     diceAnimation(roll)
     Turn(turn, roll, playerNumber);
-
   })
 }
 //Notatki na następne posiedzenie:
