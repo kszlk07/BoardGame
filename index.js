@@ -111,7 +111,7 @@ function ReturnToOriginField(pawnId){
       yellowPawn1.finished = false;
       break;
     case yellowPawn2.id:
-      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn1.id}"></div>`);
+      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn2.id}"></div>`);
       yellowPawn2.stepsTaken = 0;
       yellowPawn2.position = 0;
       yellowPawn2.canMove = false;
@@ -139,7 +139,7 @@ function ReturnToOriginField(pawnId){
       greenPawn1.stepsTaken = 0;
       greenPawn1.position = 0;
       greenPawn1.canMove = false;
-      greenPawn2.isHome = true;
+      greenPawn1.isHome = true;
       greenPawn1.finished = false;
       break;
     case greenPawn2.id:
@@ -436,9 +436,6 @@ function NextPlayer(current){
 function Turn (turn, roll, currentPlayer){
   var howManyCanMove = 0;
   round += 1;
-  console.log("currentRound: " + round);
-  console.log("currentColor: " + turn);
-  console.log("currentRoll: " + roll)
     //Checking if player can move to next position with single pawns
     for (var i = 0; i < allPawns[currentPlayer].length; i++) {
       if($("#Field" + CalculateNextPosition(allPawns[currentPlayer][i].position, roll) + " .pawn").hasClass(turn + '-pawn') == true){
