@@ -248,30 +248,33 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
         newPosition.html(`<div class="pawn ` + color +`-pawn" id="${pawnId}"></div>`);
     }
   }
-    if($("#" + color + "endingField4").html() != ''){
+    if($("#" + color + "EndingField4").html() != ''){
       for (var i = 0; i < allPawns[currentPlayer].length; i++) {
         if(allPawns[currentPlayer][i].id == $("#" + color + "endingField4 " + "." + color + "-pawn").attr("id")){
           allPawns[currentPlayer][i].finished = true;
           allLastEndingFields[currentPlayer] = 3;
+
         }
       }
-      if($("#" + color + "endingField3").html() != ''){
+      if($("#" + color + "EndingField3").html() != ''){
         for (var i = 0; i < allPawns[currentPlayer].length; i++) {
           if(allPawns[currentPlayer][i].id == $("#" + color + "endingField3 " + "." + color + "-pawn").attr("id")){
             allPawns[currentPlayer][i].finished = true;
             allLastEndingFields[currentPlayer] = 2;
+
           }
         }
-        if($("#" + color + "endingField2").html() != ''){
-          for (var i = 0; i < allPawns[currentPlayer].length; i++) {
-            if(allPawns[currentPlayer][i].id == $("#" + color + "endingField2 " + "." + color + "-pawn").attr("id")){
-              allPawns[currentPlayer][i].finished = true;
-              allLastEndingFields[currentPlayer] = 1;
+          if($("#" + color + "EndingField2").html() != ''){
+            for (var i = 0; i < allPawns[currentPlayer].length; i++) {
+              if(allPawns[currentPlayer][i].id == $("#" + color + "endingField2 " + "." + color + "-pawn").attr("id")){
+                allPawns[currentPlayer][i].finished = true;
+                allLastEndingFields[currentPlayer] = 1;
+
+              }
             }
-          }
-          if($("#" + color + "endingField1").html() != ''){
-            GameEnd(color);
-          }
+              if($("#" + color + "EndingField1").html() != ''){
+                GameEnd(color);
+              }
         }
       }
   }
@@ -489,7 +492,7 @@ function Turn (turn, roll, currentPlayer){
     //Player can move only one pawn so it goes by itself
     else if(howManyCanMove >= 1 && roll == 6){
       setTimeout(function(){
-        if ($("#Field" + startingBluePosition + " .pawn").hasClass(turn + "-pawn") == false) {
+        if ($("#Field" + allstartingPositions[currentPlayer] + " .pawn").hasClass(turn + "-pawn") == false) {
           choosingToMoveFromHome(turn, currentPlayer);
         }
         for (var i = 0; i < allPawns[currentPlayer].length; i++) {
