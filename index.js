@@ -282,9 +282,11 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
 
 function GameEnd(color){
   $(".main-header").html(`<span class="${color}-text">Player ${color} player</span> won!!! <br> Press any key to play again!`);
+  //dodaj tu funkcje od przycisku debilu
   for (var i = 0; i < allPawns.length; i++) {
     for (var j = 0; j < allPawns[i].length; j++) {
-      ReturnToOriginField(allPawns[i][j].id);
+      //wywolaj funkcje stepOnMeMommy i podaj jej pierdolone id pierdolonego kafla
+
       isGameStarted = false;
       StartingGame();
     }
