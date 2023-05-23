@@ -56,6 +56,7 @@ StartingGame();
 
 function StartingGame(){
   if (isGameStarted == false) {
+    round = 0;
     $(this).on("keydown",function(){
       nextTurn(-1);
     });
@@ -111,7 +112,7 @@ function ReturnToOriginField(pawnId){
       yellowPawn1.finished = false;
       break;
     case yellowPawn2.id:
-      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn2.id}"></div>`);
+      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn1.id}"></div>`);
       yellowPawn2.stepsTaken = 0;
       yellowPawn2.position = 0;
       yellowPawn2.canMove = false;
@@ -139,7 +140,7 @@ function ReturnToOriginField(pawnId){
       greenPawn1.stepsTaken = 0;
       greenPawn1.position = 0;
       greenPawn1.canMove = false;
-      greenPawn1.isHome = true;
+      greenPawn2.isHome = true;
       greenPawn1.finished = false;
       break;
     case greenPawn2.id:
@@ -242,9 +243,6 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
         if(allPawns[currentPlayer][i].stepsTaken < 41){
           oldPosition.html('');
         }
-        else{
-          oldPosition.html('');
-        }
         newPosition.html(`<div class="pawn ` + color +`-pawn" id="${pawnId}"></div>`);
     }
   }
@@ -281,14 +279,29 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
 }
 
 function GameEnd(color){
+  console.log("gameEnd function start")
   $(".main-header").html(`<span class="${color}-text">Player ${color} player</span> won!!! <br> Press any key to play again!`);
-  //dodaj tu funkcje od przycisku debilu
-  for (var i = 0; i < allPawns.length; i++) {
-    for (var j = 0; j < allPawns[i].length; j++) {
-      //wywolaj funkcje stepOnMeMommy i podaj jej pierdolone id pierdolonego kafla
 
-      isGameStarted = false;
-      StartingGame();
+  for (var i = 0; i < allPawns.length; i++) {
+    console.log("for i in GameEnd: " + i);
+    for (var j = 0; j < allPawns[i].length; j++) {
+      console.log("for j in GameEnd: " + j);
+      ReturnToOriginField(allPawns[i][j].id);
+    }
+  }
+  isGameStarted = false;
+  ClearBoard();
+  StartingGame();
+}
+
+function ClearBoard(){
+  var colors = ["blue", "yellow", "green", "red"];
+  for (var i = 1; i <= 40; i++) {
+    $("#Field" + i).html("");
+  }
+  for (var i = 0; i < colors.length; i++) {
+    for (var j = 1; j <= 4; j++) {
+      $("#" + colors[i] +  "EndingField" + j).html("");
     }
   }
 }
@@ -438,6 +451,9 @@ function NextPlayer(current){
 function Turn (turn, roll, currentPlayer){
   var howManyCanMove = 0;
   round += 1;
+  console.log("currentRound: " + round);
+  console.log("currentColor: " + turn);
+  console.log("currentRoll: " + roll)
     //Checking if player can move to next position with single pawns
     for (var i = 0; i < allPawns[currentPlayer].length; i++) {
       if($("#Field" + CalculateNextPosition(allPawns[currentPlayer][i].position, roll) + " .pawn").hasClass(turn + '-pawn') == true){
@@ -545,6 +561,7 @@ function nextTurn(playerNumber){
     var roll = DiceRoll();
     diceAnimation(roll)
     Turn(turn, roll, playerNumber);
+    $(".dice").off();
   })
 }
 //Notatki na następne posiedzenie:
