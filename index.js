@@ -58,6 +58,7 @@ function StartingGame(){
   if (isGameStarted == false) {
     round = 0;
     $(this).on("keydown",function(){
+      $(this).off();
       nextTurn(-1);
     });
   }
@@ -240,9 +241,7 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
   var oldPosition = CalculateCurrentPosition(oldSteps, color, currentPlayer);
     for (var i = 0; i < allPawns[currentPlayer].length; i++) {
       if(allPawns[currentPlayer][i].id == pawnId){
-        if(allPawns[currentPlayer][i].stepsTaken < 41){
-          oldPosition.html('');
-        }
+        oldPosition.html('');
         newPosition.html(`<div class="pawn ` + color +`-pawn" id="${pawnId}"></div>`);
     }
   }
@@ -561,7 +560,6 @@ function nextTurn(playerNumber){
     var roll = DiceRoll();
     diceAnimation(roll)
     Turn(turn, roll, playerNumber);
-    $(".dice").off();
   })
 }
 //Notatki na następne posiedzenie:
