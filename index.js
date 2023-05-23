@@ -65,10 +65,6 @@ function StartingGame(){
 }
 
 
-function PlayerWon(color){
-  $(".main-header").html(`Player <span class="${color}-text"> ${color} player</span> won!!! <br> Press any key to play again`);
-}
-
 //Returning pawns to homes
 function ReturnToOriginField(pawnId){
   switch (pawnId) {
@@ -113,7 +109,7 @@ function ReturnToOriginField(pawnId){
       yellowPawn1.finished = false;
       break;
     case yellowPawn2.id:
-      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn1.id}"></div>`);
+      $("#yellowHomeField2").html(`<div class="pawn yellow-pawn" id="${yellowPawn2.id}"></div>`);
       yellowPawn2.stepsTaken = 0;
       yellowPawn2.position = 0;
       yellowPawn2.canMove = false;
@@ -278,16 +274,12 @@ function MoveToEndField(pawnId, color, oldSteps, move, currentPlayer){
 }
 
 function GameEnd(color){
-  console.log("gameEnd function start")
-  $(".main-header").html(`<span class="${color}-text">Player ${color} player</span> won!!! <br> Press any key to play again!`);
-
   for (var i = 0; i < allPawns.length; i++) {
-    console.log("for i in GameEnd: " + i);
     for (var j = 0; j < allPawns[i].length; j++) {
-      console.log("for j in GameEnd: " + j);
       ReturnToOriginField(allPawns[i][j].id);
     }
   }
+  $(".main-header").html(`Player <span class="${color}-text"> ${color} player</span> won!!! <br> Press any key to play again`);
   isGameStarted = false;
   ClearBoard();
   StartingGame();
@@ -450,9 +442,6 @@ function NextPlayer(current){
 function Turn (turn, roll, currentPlayer){
   var howManyCanMove = 0;
   round += 1;
-  console.log("currentRound: " + round);
-  console.log("currentColor: " + turn);
-  console.log("currentRoll: " + roll)
     //Checking if player can move to next position with single pawns
     for (var i = 0; i < allPawns[currentPlayer].length; i++) {
       if($("#Field" + CalculateNextPosition(allPawns[currentPlayer][i].position, roll) + " .pawn").hasClass(turn + '-pawn') == true){
