@@ -543,9 +543,11 @@ function nextTurn(playerNumber){
   else if(playerNumber == 3){
     turn = "red";
   }
+  $(".dice").addClass("active");
   $(".main-header").html(`It's <span class="${turn}-text"> ${turn} player</span> turn`);
   $(".dice").on("click", function(){
     $(".dice").off("click");
+    $(".dice").removeClass("active");
     var roll = DiceRoll();
     diceAnimation(roll)
     Turn(turn, roll, playerNumber);

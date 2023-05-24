@@ -100,3 +100,9 @@ background: #fff385;
 .active-pawn{
   outline: solid 10px #f5f5f5;
 }
+
+.active{
+  outline: solid 10px #f5f5f5;
+  background-color: #f5f5f5;
+  border-radius: 25px;
+}
